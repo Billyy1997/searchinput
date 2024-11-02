@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="searchBar" placeholder="Search...">
+</body>
+</html>
+<script>
+    var arr = [];
+    arr.push("The digital revolution has already changed how people live, work, and communicate. And it’s only just getting started. But the same technologies that have the potential to help billions of people live happier, healthier, and more productive lives are also creating new challenges for citizens and governments around the world. From election meddling to data breaches and cyberattacks, recent events have shown that technology is changing how we think about privacy, national security, and maybe even democracy itself. In this project, we examine challenges in five key areas that will shape the future of the digital age: justice system, impact on democracy, global security and international conflict, the impact of automations and AI on the jobs marketplace, identity, and privacy.")
+    arr.push("Cryptocurrency is decentralized digital currency. It is not issued or governed by a central bank, and transactions do not require a financial institution like a bank to verify them. This article provides a comprehensive introduction to cryptocurrency, covering its definition, history, how it works, benefits, risks, and future.")
+    arr.push("A newly discovered frog fossil represents the oldest tadpole ever found, and it looks remarkably like the tadpoles you’re probably familiar with except for one thing—it was a giant.Paleontologist Federico Agnolín and his colleagues discovered the fossil by accident. The team had been scouring the same quarry at Estancia La Matilde in the Santa Cruz province of Argentina for dinosaurs. They hoped that the fine sediment and volcanic ash that formed the quarry’s Jurassic-period rock may have preserved the imprint of soft tissues never discovered before. Yet instead of dinos, they kept finding frogs.The frogs were all adults from the same extinct species, Notobatrachus degiustoi. That led some researchers to speculate that perhaps in those days, frogs didn’t have a tadpole stage yet. Yet in January 2020, a team member picked up a rock during a break and found a more than six inches long imprint of a tadpole revealing exquisite details of its gills, eyes, and even some nerves.")
+
+    var searchBarinput = document.getElementById("searchBar");
+        searchBarinput.addEventListener('input', function(){
+            var allParagraphs = document.querySelectorAll("p");
+            var allSeperators = document.querySelectorAll("hr");
+            for(var i=0; i<allParagraphs.length; i++){ //delete all precedent highlights
+                allParagraphs[i].remove();
+            }
+            for(var i=0; i<allSeperators.length; i++){ //delete precedent seperators
+                allSeperators[i].remove();
+            }
+            
+            for(var i=0; i<arr.length; i++) {        
+                if(arr[i].toLowerCase().includes(searchBarinput.value.toLowerCase()) && searchBarinput.value != ""){ //checks if the input is found in each string of the array
+                    var regex = new RegExp('(' + searchBarinput.value + ')', 'gi'); //created a regular expression to find all matches (g) without checking the case(i)
+                    var newText = arr[i].replace(regex, function(match) {
+                        return '<span style="background-color: yellow;">' + match + '</span>'; 
+                    }); // highlight the found match
+                    var highlightedText = document.createElement("p"); // show the pragraph that has matches in it
+                    highlightedText.innerHTML = newText;
+                    document.body.appendChild(highlightedText);
+                    if(i != arr.length-1){
+                        var seperator = document.createElement("hr");
+                        document.body.appendChild(seperator);
+                    }
+                }
+            }
+    })
+</script>
